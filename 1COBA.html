@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pink Envelope</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, orientation=landscape">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-env: #FFB7C5;
+            --color-env2: #ff9aad;
+            --color-flap: #ff8da1;
+            --color-bg: #ed7fca;
+            --color-heart: #ff85a2;
+            --color-sparkle: #fff;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media screen and (orientation: portrait) {
+            body {
+                transform: rotate(90deg);
+                transform-origin: center;
+                width: 100vh;
+                height: 100vw;
+                overflow: hidden;
+                position: fixed;
+            }
+        }
+
+        .envlope-wrapper {
+            height: 380px;
+            margin-top: 50px;
+        }
+
+        #envelope {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            margin: 0 auto;
+            top: 150px;
+            background-color: var(--color-flap);
+            box-shadow: 0 4px 20px rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+
+        .flap {
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 82px solid transparent;
+            border-top: 98px solid var(--color-flap);
+            transform-origin: top;
+            pointer-events: none;
+        }
+
+        .pocket {
+            border-left: 140px solid var(--color-env);
+            border-right: 140px solid var(--color-env);
+            border-bottom: 90px solid var(--color-env2);
+            border-top: 90px solid transparent;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
+        .letter {
+            position: relative;
+            background-color: #e0d9dd;
+            width: 90%;
+            margin: 0 auto;
+            height: 85%;
+            top: 8%;
+            border-radius: 6px;
+            box-shadow: 0 2px 26px rgba(0,0,0,.08);
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message {
+            font-family: 'Handlee', cursive;
+            color: #d46a84;
+            text-align: center;
+            font-size: 1.8em;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+
+        .open .flap {
+            transform: rotateX(180deg);
+            transition: transform 0.4s ease, z-index 0.6s;
+            z-index: 1;
+        }
+
+        .close .flap {
+            transform: rotateX(0deg);
+            transition: transform 0.4s 0.6s ease, z-index 1s;
+            z-index: 5;
+        }
+
+        .close .letter {
+            transform: translateY(0px); 
+            transition: transform 0.4s ease, z-index 1s;
+            z-index: 1;
+        }
+
+        .open .letter {
+            transform: translateY(-60px) rotate(-2deg);
+            transition: transform 0.4s 0.6s ease, z-index 0.6s;
+            z-index: 2;
+        }
+
+        .reset {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .reset button {
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background-color: var(--color-env);
+            border: 2px solid var(--color-env2);
+            border-radius: 20px;
+            color: white;
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            font-family: Arial, sans-serif;
+        }
+
+        .reset button:hover {
+            background-color: var(--color-env2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="envlope-wrapper">
+        <div id="envelope" class="close">
+            <div class="front flap"></div>
+            <div class="front pocket"></div>
+            <div class="letter">
+                <div class="message">
+                    <p>SMGT YAYAK KULIAHNYA 🩷</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reset">
+        <button id="open">Open Envelope</button>
+        <button id="reset">Close Envelope</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const envelope = $('#envelope');
+            const btnOpen = $("#open");
+            const btnReset = $("#reset");
+
+            envelope.on('click', open);
+            btnOpen.on('click', open);
+            btnReset.on('click', close);
+
+            function open() {
+                envelope.removeClass("close").addClass("open");
+            }
+
+            function close() {
+                envelope.removeClass("open").addClass("close");
+            }
+        });
+
+        function forceLandscape() {
+            if (window.innerHeight > window.innerWidth) {
+                alert("Putar HP ke mode landscape untuk pengalaman terbaik! 📱➡️");
+            }
+        }
+
+        window.addEventListener("load", forceLandscape);
+        window.addEventListener("resize", forceLandscap
